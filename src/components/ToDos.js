@@ -7,7 +7,10 @@ class ToDos extends React.Component {
             <div>
                 <ul>
                     {this.props.todos.map(todo => (
-                        <ToDoItem key={todo.id} todo={todo} handleChange={this.props.handleChange} />
+                        <ToDoItem key={todo.id} 
+                                todo={todo} 
+                                handleChange={this.props.handleChange}
+                                deleteToDo={this.props.deleteToDo} />
                     ))}
                 </ul>
             </div>

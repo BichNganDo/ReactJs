@@ -1,37 +1,68 @@
-import React from "react";
+import React, { Component }  from "react";
 import Header from "../components/layout/Header";
 import ToDos from "./ToDos";
+import AddToDo from "./AddToDo";
+import {v4 as uuid} from "uuid"; 
+import axios from "axios";
+
 
 class ToDoApp extends React.Component{
     handleCheckboxChange = id => {
-        console.log("clicked on checkbox with id = " + id);
+        this.setState({
+            todos: this.state.todos.map(todo => {
+                if(todo.id === id) {
+                    todo.completed = !todo.completed;
+                }
+                return todo;
+            })
+        })
     }
+
+    deleteToDo = id => {
+        this.setState({
+            todos: [
+                ...this.state.todos.filter(todo => {
+                    return todo.id !== id;
+                })
+            ]
+        })
+    }
+
+    addToDo = title => {
+        const newToDo = {
+            id: uuid(),
+            title: title,
+            completed: false
+        };
+        this.setState({
+            todos:[...this.state.todos, newToDo]
+        });
+    }
+
+    componentDidMount() {
+        const config = {
+            params: {
+                _limit: 8
+            }
+        }
+        //tạo GET request để lấy danh sách todos
+        axios.get("https://jsonplaceholder.typicode.com/todos", config)
+        .then(response => this.setState({todos: response.data}));
+    }
+
     render(){
         return (
             <div className="container">
-                <Header/>
-                <ToDos todos={this.state.todos} handleChange={this.handleCheckboxChange}/>
+                <Header />
+                <AddToDo addToDo={this.addToDo} />
+                <ToDos todos={this.state.todos} 
+                        handleChange={this.handleCheckboxChange} 
+                        deleteToDo={this.deleteToDo}/>
             </div>
         );
     }
     state = {
-        todos: [
-            {
-                id: 1,
-                title: "Setup development environment",
-                completed: true
-            },
-            {
-                id: 2,
-                title: "Develop website and add content",
-                completed: false
-            },
-            {
-                id: 3,
-                title: "Deploy to live server",
-                completed: false
-            }
-        ]
+        todos: []
     }
 }
 
