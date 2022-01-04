@@ -3,11 +3,14 @@ import Header from "../components/layout/Header";
 import ToDos from "./ToDos";
 
 class ToDoApp extends React.Component{
+    handleCheckboxChange = id => {
+        console.log("clicked on checkbox with id = " + id);
+    }
     render(){
         return (
             <div className="container">
                 <Header/>
-                <ToDos todos={this.state.todos}/>
+                <ToDos todos={this.state.todos} handleChange={this.handleCheckboxChange}/>
             </div>
         );
     }
