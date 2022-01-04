@@ -19,25 +19,29 @@ class ToDoApp extends React.Component{
     }
 
     deleteToDo = id => {
-        this.setState({
-            todos: [
-                ...this.state.todos.filter(todo => {
-                    return todo.id !== id;
-                })
-            ]
-        })
-    }
+      axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(response => this.setState({
+          todos: [
+              ...this.state.todos.filter(todo => {
+                  return todo.id !== id;
+              })
+          ]
+      }))
+    };
 
     addToDo = title => {
-        const newToDo = {
-            id: uuid(),
+        const todoData = {
             title: title,
             completed: false
-        };
-        this.setState({
-            todos:[...this.state.todos, newToDo]
+        }
+        axios.post("https://jsonplaceholder.typicode.com/todos", todoData)
+        .then(response => {
+            console.log(response.data);
+            this.setState({
+                todos: [...this.state.todos, response.data]
+            })
         });
-    }
+    };
 
     componentDidMount() {
         const config = {
