@@ -4,6 +4,7 @@ import ToDos from "./ToDos";
 import AddToDo from "./AddToDo";
 //Khai báo thư viện Axios
 import axios from "axios";
+import Footer from "../components/layout/Footer";
 
 
 // class ToDoApp extends React.Component{
@@ -131,6 +132,7 @@ function ToDoApp() {
             <ToDos todos={state.todos}
             handleChange={handleCheckboxChange}
             deleteToDo={deleteToDo} />
+            <Footer />
         </div>
     );
 }
