@@ -9,10 +9,23 @@ class Footer extends React.Component {
         super(props)
         this.submitThemeColor = this.submitThemeColor.bind(this)
     }
+
     submitThemeColor(color) {
         //lưu giá trị mã màu theme vào Store - redux
-        //Xử lý sau
+        if(color){
+            console.log("handleChangeTheme");
+            this.props.saveColorTheme(color);
+        }
     };
+
+    componentWillReceiveProps(nextprops) {
+        console.log('UNSAFE_componentWillReceiveProps: ' + JSON.stringify(nextprops));
+        document.documentElement
+                .style
+                .setProperty('--main-color', nextprops.themeColor.color);
+    }
+
+    
 
     render () {
         return (

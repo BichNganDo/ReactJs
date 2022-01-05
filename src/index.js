@@ -1,10 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-
-import ToDoApp from "./components/ToDoApp";
 import Apps from "./Apps.css";
 
-ReactDOM.render(<ToDoApp />, document.getElementById("root"));
+import ToDoApp from "./components/ToDoApp";
+
+
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import rootReducer from "./store/reducers";
+
+const store = createStore(rootReducer);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <ToDoApp/>
+    </Provider>, document.getElementById('root')
+);

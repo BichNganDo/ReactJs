@@ -4,7 +4,7 @@ import ToDos from "./ToDos";
 import AddToDo from "./AddToDo";
 //Khai báo thư viện Axios
 import axios from "axios";
-import Footer from "../components/layout/Footer";
+import Footer from "../store/containers/Footer";
 
 
 // class ToDoApp extends React.Component{
