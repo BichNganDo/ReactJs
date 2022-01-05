@@ -1,31 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
+        //CACH 1: CLASS COMPONENT
+// class AddToDo extends React.Component {
+//     onInputChange = e => {
+//         this.setState({
+//             title: e.target.value
+//         })
+//     }
 
-class AddToDo extends React.Component {
-    onInputChange = e => {
-        this.setState({
-            title: e.target.value
-        })
-    }
+//     addToDo = e => {
+//         e.preventDefault();
+//         this.props.addToDo(this.state.title)
+//         this.setState({
+//             title: ""
+//         });
+//     };
+//     render () {
+//         return (
+//             <form className="form-container" onSubmit={this.addToDo}>
+//                 <input type="text" placeholder="Add ToDo..." className="input-text" value={this.state.title} onChange={this.onInputChange}/>
+//                 <input type="submit" value="Submit" className="input-submit"/>
+//             </form>
+//         )
+//     }
 
-    addToDo = e => {
+//     state = {
+//         title: ""
+//     };
+
+// }
+// export default AddToDo;
+
+//CACH 2: FUNCTION COMPONENT
+
+function AddToDo(props) {
+    const [title, setTitle] = useState("");
+
+    const onInputChange = e => {
+        setTitle(e.target.value)
+    };
+
+    const addToDo = e => {
         e.preventDefault();
-        this.props.addToDo(this.state.title)
-        this.setState({
-            title: ""
-        });
-    };
-    render () {
-        return (
-            <form className="form-container" onSubmit={this.addToDo}>
-                <input type="text" placeholder="Add ToDo..." className="input-text" value={this.state.title} onChange={this.onInputChange}/>
-                <input type="submit" value="Submit" className="input-submit"/>
-            </form>
-        )
+        props.addToDo(title);
+        setTitle("");
     }
 
-    state = {
-        title: ""
-    };
+    return (
+        <form className="form-container" onSubmit={addToDo}>
+            <input type="text"
+                    placeholder="Add ToDo..."
+                    className="input-text"
+                    value={title}
+                    onChange={onInputChange}/>
+            <input type="submit"
+                    value="Submit"
+                    className="input-submit"/>
 
+        </form>
+
+    );
+    
 }
 export default AddToDo;
